@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forms Webpage</title>
+    <link rel="stylesheet" href="./page1.css" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <main>
+      <h1>A form I guess</h1>
+      <div class="form">
+        <form>
+          <label for="name">Name:</label><br />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Name"
+            required
+          />
+          <label for="last name">Last Name:</label><br />
+          <input
+            type="text"
+            id="last name"
+            name="last name"
+            placeholder="Last Name"
+            required
+          />
+          <label for="email">Email:</label><br />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+          <label for="password">Password:</label><br />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+          /><br /><br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+      <div class="form2">
+        <form>
+          <label for="cars">Choose a car</label>
+          <select name="cars" id="cars">
+            <option value="volvo"></option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
+        </form>
+      </div>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>
