@@ -9,7 +9,20 @@
   </head>
   <body>
     <main>
-      <h1>A form I guess</h1>
+      <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="#about us">About us</a>
+        <div class="dropdown">
+          <button class="dropbtn">Types of cars<i class="fa fa-caret-down"></i></button>
+          <div class="dropdown-content">
+            <a href="#">Sedans</a>
+            <a href="#">SUVs</a>
+            <a href="#">Bikes</a>
+          </div>
+        </div> 
+      </div>
+      <h1>How to reach you</h1>
+      <img src="./Images/used-car-from-a-dealership-top-tips-to-find-the-right-car-dealer.jpg" alt="Form Image" class="img2" />
       <div class="form">
         <form>
           <label for="name">Name:</label><br />
@@ -36,27 +49,14 @@
             placeholder="Email"
             required
           />
-          <label for="password">Password:</label><br />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            required
-          /><br /><br />
-          <input type="submit" value="Submit" />
+          <br /><br />
+          <input type="submit" value="Submit" class="sumbitB1"/>
         </form>
       </div>
-      <div class="form2">
-        <form>
-          <label for="cars">Choose a car</label>
-          <select name="cars" id="cars">
-            <option value="volvo"></option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-          </select>
-        </form>
+      <div class="slidecontainer">
+        <p>How did we treat you today?</p>
+        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+        <p>Smile Counter: <span id="demo"></span></p>
       </div>
     </main>
     <script src="index.js"></script>
