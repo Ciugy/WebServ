@@ -82,10 +82,6 @@ form input[type="email"]:focus {
   background: #444;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
 
 .dropdown-content {
   display: none;

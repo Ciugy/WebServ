@@ -96,13 +96,14 @@ footer {
   transition: background 0.2s;
 }
 
+/* Hover of "Types of Cars */
 .navbar a:hover, .dropdown:hover .dropbtn {
   background: #444;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
+.dropdown:hover .dropdown-content {
+  display: block;
+  background: #555;
 }
 
 .dropdown-content {
@@ -122,14 +123,13 @@ footer {
   text-decoration: none;
 }
 
-.dropdown-content a:hover {
+a:hover {
   background: #555;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
 main {
   max-width: 600px;
   margin: 40px auto;
