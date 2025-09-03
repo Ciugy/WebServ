@@ -10,7 +10,7 @@ body {
 }
 
 main {
-  max-width: 600px;
+  max-width: 1100px;
   margin: 40px auto;
   padding: 24px;
   background: #fff;
@@ -88,63 +88,8 @@ h1 {
   background: #3d566e;
 }
 
-/* Form Styles */
-.form-container {
-  background: #f0f4f8;
-  padding: 24px 18px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
-  margin-bottom: 32px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-label {
-  font-weight: 500;
-  color: #2c3e50;
-  margin-bottom: 4px;
-}
-
-input[type="text"],
-input[type="email"] {
-  padding: 10px 12px;
-  border: 1px solid #bfc9d1;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #fff;
-  transition: border 0.2s;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus {
-  border: 1.5px solid #2c3e50;
-  outline: none;
-}
-
-.submitB1 {
-  margin-top: 12px;
-  padding: 10px 0;
-  background: #2c3e50;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.submitB1:hover {
-  background: #34495e;
-}
-
 /* Image Style */
 .img2 {
-  display: block;
-  margin: 0 auto 32px auto;
   height: 180px;
   width: auto;
   border-radius: 12px;
@@ -155,26 +100,30 @@ input[type="email"]:focus {
 }
 
 .img2:hover {
-  transform: scale(1.04);
+  transform: scale(1.07);
   box-shadow: 0 8px 32px rgba(44, 62, 80, 0.18);
 }
 
-/* Slider container */
-.slidecontainer {
-  margin-top: 24px;
-  background: #f0f4f8;
-  padding: 18px 14px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
-  text-align: center;
+/* Scroll container for car images */
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 24px;
+  padding: 16px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #2c3e50 #e0e7ef;
 }
 
-.slider {
-  width: 80%;
-  margin: 16px 0;
-  accent-color: #2c3e50;
+.scroll-container::-webkit-scrollbar {
+  height: 10px;
 }
 
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #2c3e50;
+  border-radius: 6px;
+}
+
+/* Responsive adjustments */
 @media (max-width: 700px) {
   main {
     padding: 8px;
@@ -187,4 +136,39 @@ input[type="email"]:focus {
   .img2 {
     height: 120px;
   }
+}
+
+.carselector {
+  color: #090909;
+  padding: 0.7em 1.7em;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.carselector:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+.btncontainer {
+  height: 200px;
+  position: relative;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.hidden {
+  display: none !important;
 }

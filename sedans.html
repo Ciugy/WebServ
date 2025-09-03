@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List of Sedans</title>
+    <link rel="stylesheet" href="./sedans.css" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <main>
+      <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="#about-us">About us</a>
+        <div class="dropdown">
+          <button class="dropbtn">
+            Types of cars <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="sedans.html">Sedans</a>
+            <a href="#">SUVs</a>
+            <a href="#">Bikes</a>
+          </div>
+        </div>
+      </nav>
+      <h1>List of Sedans</h1>
+      <div class="scroll-container" id="carimages">
+        <img src="./Images/Cady.png" alt="Cadillac" class="img2" />
+        <img src="./Images/cady2.png" alt="Cadillac 2" class="img2" />
+        <img src="./Images/honda.png" alt="Honda" class="img2" />
+        <img src="./Images/alpha.png" alt="Alfa Romeo" class="img2" />
+        <img src="./Images/hyundai.png" alt="Hyundai" class="img2" />
+        <img src="./Images/porshe.png" alt="Porsche" class="img2" />
+        <img src="./Images/lexus.png" alt="Lexus" class="img2" />
+        <img src="./Images/bmw.png" alt="BMW" class="img2" />
+        <img src="./Images/audi.png" alt="Audi" class="img2" />
+      </div>
+      <div class="btncontainer">
+        <div class="vertical-center">
+          <button class="carselector" ondblclick="alert('Button clicked!')">
+            Click me
+          </button>
+          <button class="carselector" onclick="toggleOnOff()">?</button>
+          <p id="clicked"></p>
+        </div>
+      </div>
+    </main>
+    <script src="sedans.js"></script>
+  </body>
+</html>
