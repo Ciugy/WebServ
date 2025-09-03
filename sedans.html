@@ -27,7 +27,7 @@
           </div>
         </div>
       </nav>
-      <h1>List of Sedans</h1>
+      <h1 id="header1">List of Sedans</h1>
       <div class="scroll-container" id="carimages">
         <img src="./Images/Cady.png" alt="Cadillac" class="img2" />
         <img src="./Images/cady2.png" alt="Cadillac 2" class="img2" />
@@ -41,11 +41,11 @@
       </div>
       <div class="btncontainer">
         <div class="vertical-center">
-          <button class="carselector" ondblclick="alert('Button clicked!')">
+          <button id="btnchange" class="carselector" onblur="ChangebtnText(this)" ondblclick="alert('Button clicked!')">
             Click me
           </button>
           <button class="carselector" onclick="toggleOnOff()">?</button>
-          <p id="clicked"></p>
+          <p id="clicked">Click</p>
         </div>
       </div>
     </main>
