@@ -19,3 +19,11 @@ myButton.addEventListener("mouseover", () => {
   const newY = Math.random() * (window.innerHeight - myButton.offsetHeight);
   setButtonPosition(newX, newY);
 });
+
+// Fetch text from a file and display it in an element with id "fetchy"
+async function getText(file) {
+  let myObject = await fetch(file);
+  let myText = await myObject.text();
+  document.getElementById("fetchy").innerHTML = myText;
+}
+
