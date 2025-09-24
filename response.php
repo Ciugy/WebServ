@@ -5,9 +5,9 @@
     <title>Simple HTML Template</title>
 </head>
 <body>
-    <h1>Welcome to My Simple HTML Page</h1>
+    <h1>User Agent</h1>
     <p>    
-        <?=
+        <?php
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         echo "User-Agent: " . $userAgent;
         ?>
