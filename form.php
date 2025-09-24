@@ -5,11 +5,10 @@
  
         <?php
         Welcome echo $_GET["name"]; echo $_GET["last-name"];
-        Your email address is: <?php echo $_GET["email"]; 
+        Your email address is: echo $_GET["email"];
+        var_dump($_GET) 
+        var_dump($_POST)
         ?>
-
-        <p>GET: <?= var_dump($_GET) ?></p>
-        <p>POST: <?= var_dump($_POST) ?></p>
 
 </body>
 </html>
