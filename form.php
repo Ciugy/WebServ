@@ -4,12 +4,8 @@
     <h1>User Agent</h1>
  
     <p> 
-        <?php
-        echo "Welcome " $_GET["name"] . "" . $_GET["last-name"] . "<br>";
-        echo "Your email address is: "  . $_GET["email"] . "<br>";
-        var_dump($_GET); 
-        var_dump($_POST);
-        ?>
+        Welcome <?php echo $_GET["name"] . " " . $_GET["last-name"]; ?><br>
+        Your email address is: <?php echo $_GET["email"]; ?>
     </p>
 
 </body>
