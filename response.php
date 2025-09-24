@@ -6,7 +6,12 @@
 </head>
 <body>
     <h1>Welcome to My Simple HTML Page</h1>
-    <p>This is a basic HTML template.</p>
-    <p><?= var_dump($_SERVER) ?></p>
+    <p>    
+        <?
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        echo "User-Agent: " . $userAgent;
+        ?>
+    </p>
+
 </body>
 </html>
