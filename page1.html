@@ -34,7 +34,7 @@
         class="img2"
       />
       <div class="form-container" >
-        <form action="form.php" method="post">
+        <form action="userform.php" method="post">
           <label for="name">Name:</label>
           <input
             type="text"
@@ -59,20 +59,20 @@
             placeholder="Email"
             required
           />
+            <div class="slidecontainer">
+              <label for="satisfaction"><p id="TextInSlider">How did we treat you today?</p></label>
+              <input
+                type="range"
+                min="1"
+                max="100"
+                value="50"
+                class="slider"
+                id="myRange"
+              />
+              <p>Satisfaction: <span id="demo"></span></p>
+            </div>
           <input type="submit" value="Submit" class="submitB1" />
         </form>
-      </div>
-      <div class="slidecontainer">
-        <p id="TextInSlider">How did we treat you today?</p>
-        <input
-          type="range"
-          min="1"
-          max="100"
-          value="50"
-          class="slider"
-          id="myRange"
-        />
-        <p>Smile Counter: <span id="demo"></span></p>
       </div>
     </main>
     <script src="/JS/page1.js"></script>
