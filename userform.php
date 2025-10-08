@@ -4,10 +4,30 @@
     <h1>Information Submitted</h1>
  
 
-    <?php include 'dbconnection.php'; 
-    $satisfaction = $_POST['satisfaction'];
-    $stmt = $conn->prepare("INSERT INTO Users (first_name, last_name, email, satisfaction) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sssi", $first_name, $last_name, $email, $satisfaction);
+    <?php
+        include 'dbconnection.php';
+
+        $first_name   = $_POST['name'];
+        $last_name    = $_POST['last-name'];
+        $email        = $_POST['email'];
+        $satisfaction = (int)($_POST['satisfaction'] ?? 0);
+
+        $stmt = $conn->prepare(
+            "INSERT INTO Users (first_name, last_name, email, satisfaction)
+            VALUES (?, ?, ?, ?)"
+        );
+        if (!$stmt) die("Prepare failed: " . $conn->error);
+
+        $stmt->bind_param("sssi", $first_name, $last_name, $email, $satisfaction);
+
+        if (!$stmt->execute()) {
+            die("Execute failed: " . $stmt->error);
+        }
+
+        echo "Inserted OK. Rows: " . $stmt->affected_rows;
+        $stmt->close();
+        $conn->close();
+
     ?>
 
 
