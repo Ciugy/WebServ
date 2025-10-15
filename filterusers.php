@@ -62,7 +62,7 @@
             text-align: center;
         }
         .dropdown-list {
-            position: absolute;
+            position: relative;
             background: #fff;
             border: 1px solid #ccc;
             max-width: 400px;
@@ -122,7 +122,6 @@
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     echo "<div class='user-result'><strong>Name:</strong> " . htmlspecialchars($row["first_name"]) . " &nbsp; <strong>Email:</strong> " . htmlspecialchars($row["email"]) . "</div>";
-                    echo "<div id="dropdown" class="dropdown-list"></div>";
                 }
             } else {
                 echo "<div class='error'>No users found.</div>";
