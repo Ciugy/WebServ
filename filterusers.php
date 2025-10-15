@@ -20,13 +20,13 @@
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                echo "<br>" "Username: " . htmlspecialchars($row["first_name"]) . " - Email: " . htmlspecialchars($row["email"]) . "<br>";
+                echo "<br>" "Name: " . htmlspecialchars($row["first_name"]) . " - Email: " . htmlspecialchars($row["email"]) . "<br>";
             }
         } else {
-            echo "<br>" "<div class='container'><p class='error'>No users found.</p></div>";
+            echo "<br><div class='container'><p class='error'>No users found.</p></div>";
         }
     } else {
-        echo "<br>" "<div class='container'><p class='error'>No search query provided.</p></div>";
+        echo "<br><div class='container'><p class='error'>No search query provided.</p></div>";
     }
     ?>
 </body>
