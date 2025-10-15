@@ -89,7 +89,7 @@
                 dropdown.style.display = "none";
                 return;
             }
-            fetch(`filterusers.php?query=${encodeURIComponent(query)}`)
+            fetch(`filterusers.php?query=${encodeURIComponent(query)}&ajax=1`)
                 .then(response => response.text())
                 .then(data => {
                     dropdown.innerHTML = data;
@@ -104,26 +104,45 @@
         <form action="filterusers.php" method="GET">
             <input type="search" id="searchInput" name="query" placeholder="Search for users..." oninput="autocomplete(this);" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
             <button type="submit">Search</button>
-            <div id="dropdown" class="dropdown-list"></div>
+            <br>
+            <div id="dropdown" class="dropdown-list" style="display:none;"></div>
         </form>
         <?php
         include 'dbconnection.php';
 
-        if (isset($_GET['query']) && $_GET['query'] !== '') {
+        // remove this if dont work
+        if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
+            include 'dbconnection.php';
             $searchQuery = $_GET['query'];
-            $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
+            $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%' LIMIT 10";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    echo "<div class='user-result'><strong>Name:</strong> " . htmlspecialchars($row["first_name"]) . " &nbsp; <strong>Email:</strong> " . htmlspecialchars($row["email"]) . "</div>";
+                    echo "<div class='dropdown-item'><strong>Name:</strong> " . htmlspecialchars($row["first_name"]) . " &nbsp; <strong>Email:</strong> " . htmlspecialchars($row["email"]) . "</div>";
                 }
             } else {
-                echo "<div class='error'>No users found.</div>";
+                echo "<div class='dropdown-item'>No users found.</div>";
             }
-        } else if (isset($_GET['query'])) {
-            echo "<div class='error'>No search query provided.</div>";
+            exit;
         }
+
+        // if (isset($_GET['query']) && $_GET['query'] !== '') {
+        //     $searchQuery = $_GET['query'];
+        //     $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
+        //     $result = $conn->query($sql);
+
+        //     if ($result->num_rows > 0) {
+        //         while($row = $result->fetch_assoc()) {
+        //             echo "<div class='user-result'><strong>Name:</strong> " . htmlspecialchars($row["first_name"]) . " &nbsp; <strong>Email:</strong> " . htmlspecialchars($row["email"]) . "</div>";
+        //             echo "<div id="dropdown" class="dropdown-list"></div>";
+        //         }
+        //     } else {
+        //         echo "<div class='error'>No users found.</div>";
+        //     }
+        // } else if (isset($_GET['query'])) {
+        //     echo "<div class='error'>No search query provided.</div>";
+        // }
         ?>
     </div>
 </body>
