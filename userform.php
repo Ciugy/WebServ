@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Information Submitted</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <style>
+    <link rel="stylesheet" href="./CSS/userform.css"/>
+    <!-- <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(120deg, #f0f4f8 0%, #e0e7ef 100%);
@@ -60,7 +61,7 @@
                 font-size: 1.3rem;
             }
         }
-    </style>
+    </style> -->
 </head>
 <body>
     <div class="container">
