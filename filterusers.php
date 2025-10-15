@@ -76,12 +76,12 @@
     }
 
     
-    $sql = "SELECT * FROM users WHERE username LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
+    $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            echo "Username: " . $row["username"]. " - Email: " . $row["email"]. "<br>";
+            echo "Username: " . $row["first_name"]. " - Email: " . $row["email"]. "<br>";
         }
     } else {
         echo "<div class='container'><p class='error'>No search query provided.</p></div>";
