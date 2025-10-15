@@ -2,32 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Filter users page</title>
-</head>
-<body>    
-
-    <form action="filterusers.php" method="GET">
-        <input type="text" name="query" placeholder="Search for users...">
-        <button type="submit">Search</button>
-    </form>
-    <?php
-    include 'dbconnection.php';
-
-    if (isset($_GET['query']) && $_GET['query'] !== '') {
-        $searchQuery = $_GET['query'];
-        $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                echo "<br>Name: " . htmlspecialchars($row["first_name"]) . " - Email: " . htmlspecialchars($row["email"]) . "<br>";
-            }
-        } else {
-            echo "<br><div class='container'><p class='error'>No users found.</p></div>";
+    <title>Filter Users Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0;
         }
-    } else {
-        echo "<br><div class='container'><p class='error'>No search query provided.</p></div>";
-    }
-    ?>
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 1em;
+            border: none;
+            background: #0078d7;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #005fa3;
+        }
+        .user-result {
+            background: #f0f4ff;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: #222;
+        }
+        .error {
+            color: #d8000c;
+            background: #ffd2d2;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Filter Users</h1>
+        <form action="filterusers.php" method="GET">
+            <input type="text" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
+            <button type="submit">Search</button>
+        </form>
+        <?php
+        include 'dbconnection.php';
+
+        if (isset($_GET['query']) && $_GET['query'] !== '') {
+            $searchQuery = $_GET['query'];
+            $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo "<div class='user-result'><strong>Name:</strong> " . htmlspecialchars($row["first_name"]) . " &nbsp; <strong>Email:</strong> " . htmlspecialchars($row["email"]) . "</div>";
+                }
+            } else {
+                echo "<div class='error'>No users found.</div>";
+            }
+        } else if (isset($_GET['query'])) {
+            echo "<div class='error'>No search query provided.</div>";
+        }
+        ?>
+    </div>
 </body>
 </html>
