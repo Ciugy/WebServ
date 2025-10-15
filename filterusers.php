@@ -26,6 +26,7 @@
             display: flex;
             justify-content: center;
             margin-bottom: 25px;
+            position: relative;
         }
         input[type="text"] {
             padding: 8px;
@@ -61,9 +62,27 @@
             margin-bottom: 10px;
             text-align: center;
         }
+        .dropdown-list {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ccc;
+            max-width: 400px;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .dropdown-item {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        .dropdown-item:hover {
+            background: #f0f4ff;
+        }
     </style>
    <script>
-        function autocomplete(query) {
+        async function autocomplete(query) {
             var filter;
             const dropdown = document.getElementById("dropdown");
             filter = query.toUpperCase();
