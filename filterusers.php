@@ -62,13 +62,35 @@
             text-align: center;
         }
     </style>
+   <script>
+        function autocomplete(query) {
+            var filter;
+            const dropdown = document.getElementById("dropdown");
+            filter = query.toUpperCase();
+            if(!query) {
+                dropdown.innerHTML = "";
+                dropdown.style.display = "none";
+                return;
+            } else {
+                const response = await fetch(`filterusers.php?query=${query.value}`)
+                .then (response => response.text())
+                .then (data => {
+                    dropdown.innerHTML = data;
+                    dropdown.style.display = "block";
+                });
+            } 
+
+            
+        };
+   </script>
 </head>
 <body>
     <div class="container">
         <h1>Filter Users</h1>
         <form action="filterusers.php" method="GET">
-            <input type="text" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
+            <input type="search" id="searchInput" name="query" placeholder="Search for users..." oninput="autocomplete(this);" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
             <button type="submit">Search</button>
+            <div id="dropdown" class="dropdown-list"></div>
         </form>
         <?php
         include 'dbconnection.php';
