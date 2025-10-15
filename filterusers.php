@@ -81,21 +81,25 @@
         }
     </style>
    <script>
-        function autocomplete(query) {
+       async function autocomplete(query) {
+            var filter;
             const dropdown = document.getElementById("dropdown");
-            const query = this.value;
-            if (!query) {
+            filter = query.toUpperCase();
+            if(!query) {
                 dropdown.innerHTML = "";
                 dropdown.style.display = "none";
                 return;
-            }
-            fetch(`filterusers.php?query=${encodeURIComponent(query)}`)
-                .then(response => response.text())
-                .then(data => {
+            } else {
+                const response = await fetch(`filterusers.php?query=${query.value}`)
+                .then (response => response.text())
+                .then (data => {
                     dropdown.innerHTML = data;
                     dropdown.style.display = "block";
                 });
-        }
+            } 
+
+            
+        };
    </script>
 </head>
 <body>
