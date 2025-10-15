@@ -1,3 +1,20 @@
+<?php
+if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
+    include 'dbconnection.php';
+    $searchQuery = $_GET['query'];
+    $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%' LIMIT 10";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<div class='dropdown-item'><strong>Name:</strong> " . htmlspecialchars($row["first_name"]) . " &nbsp; <strong>Email:</strong> " . htmlspecialchars($row["email"]) . "</div>";
+        }
+    } else {
+        echo "<div class='dropdown-item'>No users found.</div>";
+    }
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,25 +99,21 @@
         }
     </style>
    <script>
-        async function autocomplete(query) {
-            var filter;
+        async function autocomplete(inputElem) {
             const dropdown = document.getElementById("dropdown");
-            filter = query.toUpperCase();
-            if(!query) {
+            const query = inputElem.value;
+            if (!query) {
                 dropdown.innerHTML = "";
                 dropdown.style.display = "none";
                 return;
-            } else {
-                const response = await fetch(`filterusers.php?query=${query.value}`)
-                .then (response => response.text())
-                .then (data => {
+            }
+            fetch(`filterusers.php?query=${encodeURIComponent(query)}&ajax=1`)
+                .then(response => response.text())
+                .then(data => {
                     dropdown.innerHTML = data;
                     dropdown.style.display = "block";
                 });
-            } 
-
-            
-        };
+        }
    </script>
 </head>
 <body>
