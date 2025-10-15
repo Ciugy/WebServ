@@ -89,7 +89,7 @@
                 dropdown.style.display = "none";
                 return;
             }
-            fetch(`filterusers.php?query=${encodeURIComponent(query)}&ajax=1`)
+            fetch(`filterusers.php?query=${encodeURIComponent(query)}`)
                 .then(response => response.text())
                 .then(data => {
                     dropdown.innerHTML = data;
@@ -123,21 +123,6 @@
             }
         } else if (isset($_GET['query'])) {
             echo "<div class='error'>No search query provided.</div>";
-        }
-
-        if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
-            $searchQuery = $_GET['query'];
-            $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    echo "<div class='dropdown-item'><strong>Name:</strong> " . htmlspecialchars($row["first_name"]) . " &nbsp; <strong>Email:</strong> " . htmlspecialchars($row["email"]) . "</div>";
-                }
-            } else {
-                echo "<div class='dropdown-item'>No users found.</div>";
-            }
-            exit;
         }
         ?>
     </div>
