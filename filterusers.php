@@ -101,7 +101,9 @@
                     for (user in users) {
                         let text = users[user].innerText;
                         console.log(text, user, 'george');
-                        dropdown.appendChild(text);
+                        let anchor = document.createElement('a');
+                        anchor.innerHTML = text;
+                        dropdown.appendChild(anchor);
                     }
                     dropdown.innerHTML = data;
                     dropdown.style.display = "block";
@@ -116,10 +118,11 @@
     <div class="container">
         <h1>Filter Users</h1>
         <form action="filterusers.php" method="GET">
-            <input type="search" id="searchInput" name="query" placeholder="Search for users..." oninput="autocomplete(this);" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
-            <button type="submit">Search</button>
+                <input type="search" id="searchInput" name="query" placeholder="Search for users..." oninput="autocomplete(this);" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
+                <button type="submit">Search</button>
+            
+            <div id="dropdown" class="dropdown-list"></div> 
             <br>
-            <div id="dropdown" class="dropdown-list"></div>
         </form>
         <?php
         include 'dbconnection.php';
