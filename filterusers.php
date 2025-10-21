@@ -104,7 +104,7 @@
               <!-- aka  <input type="inpuit" value="Click me" onchange="msg(this.value)">-->
                 <input autocomplete="off"  type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
                 <button type="submit">Search</button>
-            <div id="dropdown" class="dropdown"></div> 
+            <div id="dropdown" class="dropdown-list"></div> 
             <br>
         </form>
         <?php
