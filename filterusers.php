@@ -103,6 +103,17 @@
 
     </style>
    <script>
+    // EN javascript pure, il faut des events listener pour les inputs
+    // sinon ca calisse pas grand chose, ca va call ta function mais ish clair selon la doc 
+        const searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("input", (event) => {
+            console.log("doux jesus", event.target.value);
+            autocomplete(event.target.value);
+            // on change => after focus
+
+        });
+
+
        async function autocomplete(query) {
             let filter;
             const dropdown = document.getElementById("dropdown");
@@ -141,7 +152,10 @@
     <div class="container">
         <h1>Filter Users</h1>
         <form action="filterusers.php" method="GET">
-                <input type="search" id="searchInput" name="query" placeholder="Search for users..." onchange="console.log(this.value)" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
+            <!-- Si tu veux remettre ton oninput... -->
+             <!-- utilise le lien suivant pour tester https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_type_button -->
+              <!-- aka  <input type="inpuit" value="Click me" onchange="msg(this.value)">-->
+                <input type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
                 <button type="button">Search</button>
             
             <div id="dropdown" class="dropdown"></div> 
