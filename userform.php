@@ -8,13 +8,13 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="#home">Home</a>
+        <a href="index.html">Home</a>
         <a href="about.html">About us</a>
-        <div class="dropdown">
-          <button class="dropbtn">
+        <div class="dropdown" tabindex="0">
+          <button class="dropbtn" aria-haspopup="true" aria-expanded="false">
             Types of cars <i class="fa fa-caret-down"></i>
           </button>
-          <div class="dropdown-content">
+          <div class="dropdown-content" aria-label="submenu">
             <a href="sedans.html">Sedans</a>
             <a href="#">SUVs</a>
             <a href="#">Bikes</a>
