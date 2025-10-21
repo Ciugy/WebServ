@@ -122,7 +122,7 @@
         if (isset($_GET['query']) && $_GET['query'] !== '') {
             $searchQuery = $_GET['query'];
             $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
-            $result = $conn->query($sql);
+            $result = $conn->query(query: $sql);
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
@@ -169,21 +169,13 @@
                     const users = document_result.getElementsByClassName('user-result');
                     console.log(users, 'users');
 
-                    for (const user of users) {
-                    const text = user.innerText.trim();
-                    console.log(text, user, 'george');
-
-                    const anchor = document.createElement('a');
-                    anchor.textContent = text; // safer than innerHTML
-                    anchor.classList.add('dropdown-item');
-
-                    // optional: make each dropdown item clickable
-                    anchor.addEventListener('click', () => {
-                        document.getElementById('searchInput').value = text;
-                        dropdown.style.display = 'none';
-                    });
-
-                    dropdown.appendChild(anchor);
+                    for (user in users) {
+                        let text = user.innerText;
+                        console.log(text, user, 'george');
+                        let anchor = document.createElement('a');
+                        anchor.innerHTML = text;
+                        anchor.classList.add('dropdown-item');
+                        dropdown.appendChild(anchor);
                     }
                     
                     dropdown.style.display = "block";
