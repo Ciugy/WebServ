@@ -61,35 +61,44 @@
             margin-bottom: 10px;
             text-align: center;
         }
-        .search-wrapper {
-        position: relative;
-        width: 100%;
-        }
-
         .dropdown-list {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: #fff;
-        border: 1px solid #ccc;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-        max-height: 250px;
-        overflow-y: auto;
-        z-index: 100;
-        display: none;
+            position: relative;
+            background: #fff;
+            border: 1px solid #ccc;
+            max-width: 400px;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
-
         .dropdown-item {
-        padding: 8px 12px;
-        cursor: pointer;
-        color: #222;
-        text-decoration: none;
-        display: block;
+            padding: 8px 12px;
+            cursor: pointer;
         }
-
         .dropdown-item:hover {
-        background: #f0f4ff;
+            background: #f0f4ff;
+        }
+        
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: #f6f6f6;
+            min-width: 230px;
+            overflow: auto;
+            border: 1px solid #ddd;
+            z-index: 1;
+
+            a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+
+                &:hover {
+                    background-color: #fff0fcff;
+                }
+            }
         }
 
     </style>
@@ -99,19 +108,12 @@
     <div class="container">
         <h1>Filter Users</h1>
         <form action="filterusers.php" method="GET">
-            <div class="search-wrapper">
-                <input
-                autocomplete="off"
-                type="search"
-                id="searchInput"
-                name="query"
-                placeholder="Search for users..."
-                oninput="autocomplete(this)"
-                value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>"
-                >
-                <div id="dropdown" class="dropdown-list"></div>
-            </div>
-            <button type="submit">Search</button>
+            <!-- Si tu veux remettre ton oninput... -->
+             <!-- utilise le lien suivant pour tester https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_type_button -->
+              <!-- aka  <input type="inpuit" value="Click me" onchange="msg(this.value)">-->
+                <input autocomplete="off"  type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
+                <button type="submit">Search</button>
+            <div id="dropdown" class="dropdown"></div> 
             <br>
         </form>
         <?php
