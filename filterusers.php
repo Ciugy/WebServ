@@ -88,17 +88,6 @@
             overflow: auto;
             border: 1px solid #ddd;
             z-index: 1;
-
-            a {
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-
-                &:hover {
-                    background-color: #fff0fcff;
-                }
-            }
         }
 
         .dropdown a {
@@ -118,14 +107,11 @@
     <div class="container">
         <h1>Filter Users</h1>
         <form action="filterusers.php" method="GET">
-            <!-- Si tu veux remettre ton oninput... -->
-             <!-- utilise le lien suivant pour tester https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_type_button -->
-              <!-- aka  <input type="inpuit" value="Click me" onchange="msg(this.value)">-->
                 <input autocomplete="off"  type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
                 <button type="submit">Search</button>
-            <div id="dropdown" class="dropdown"></div> 
             <br>
         </form>
+        <div id="dropdown" class="dropdown"></div> 
         <?php
         include 'dbconnection.php';
 
@@ -180,7 +166,7 @@
                         return;
                     }
 
-                    
+                    // Inspiration https://codepen.io/jaredgroff/pen/bGxJaXe
                     Array.from(users).forEach(userElem => {
                         let text = userElem.innerText;
                         let anchor = document.createElement('a');
