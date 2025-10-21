@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="/CSS/userform.css"/>
 </head>
 <body>
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="about.html">About us</a>
+        <div class="dropdown">
+          <button class="dropbtn">
+            Types of cars <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="sedans.html">Sedans</a>
+            <a href="#">SUVs</a>
+            <a href="#">Bikes</a>
+          </div>
+        </div>
+    </div>
     <div class="container">
         <div class="icon">
             <i class="fa fa-check-circle"></i>
