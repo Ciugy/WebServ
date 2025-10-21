@@ -35,5 +35,5 @@
         ?>
     </div>
 </body>
-<script src="/JS/filterusers.js"></script>
+<script src="/JS/filterusers.js"></script>  
 </html>
