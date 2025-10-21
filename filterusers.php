@@ -113,7 +113,6 @@
               <!-- aka  <input type="inpuit" value="Click me" onchange="msg(this.value)">-->
                 <input autocomplete="off"  type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
                 <button type="submit">Search</button>
-            
             <div id="dropdown" class="dropdown"></div> 
             <br>
         </form>
@@ -143,12 +142,11 @@
         const searchInput = document.getElementById("searchInput");
         searchInput.addEventListener("input", (event) => {
             autocomplete(event.target.value);
-            // on change => after focus
 
         });
 
 
-              async function autocomplete(query) {
+        async function autocomplete(query) {
             let filter;
             const dropdown = document.getElementById("dropdown");
             filter = query.toLowerCase();
@@ -171,22 +169,27 @@
                     const users = document_result.getElementsByClassName('user-result');
                     console.log(users, 'users');
 
-                    for (user in users) {
-                        // waky but you got something
-                        let text = user.innerText;
-                        console.log(text, user, 'george');
-                        let anchor = document.createElement('a');
-                        anchor.innerHTML = text;
-                        anchor.classList.add('dropdown-item');
-                        dropdown.appendChild(anchor);
+                    for (const user of users) {
+                    const text = user.innerText.trim();
+                    console.log(text, user, 'george');
+
+                    const anchor = document.createElement('a');
+                    anchor.textContent = text; // safer than innerHTML
+                    anchor.classList.add('dropdown-item');
+
+                    // optional: make each dropdown item clickable
+                    anchor.addEventListener('click', () => {
+                        document.getElementById('searchInput').value = text;
+                        dropdown.style.display = 'none';
+                    });
+
+                    dropdown.appendChild(anchor);
                     }
                     
                     dropdown.style.display = "block";
 
                 });
             } 
-
-            
         };
 
    </script>
