@@ -1,4 +1,4 @@
- body {
+body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(120deg, #f0f4f8 0%, #e0e7ef 100%);
             margin: 0;
@@ -53,3 +53,93 @@
                 font-size: 1.3rem;
             }
         }
+
+/* Navbar and Dropdown */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: #2c3e50;
+  padding: 16px 32px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.navbar a,
+.dropbtn {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 8px 18px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.navbar a:hover,
+.dropbtn:hover,
+.dropdown:focus-within .dropbtn {
+  background: #34495e;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  font-weight: 500;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  background: #34495e;
+  min-width: 160px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(44, 62, 80, 0.15);
+  z-index: 1;
+  top: 100%;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: #fff;
+  padding: 12px 18px;
+  display: block;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.dropdown-content a:hover {
+  background: #3d566e;
+}
+
+/* Responsive Navbar */
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    align-items: stretch;
+  }
+  .dropdown-content {
+    position: static;
+    min-width: 100%;
+    box-shadow: none;
+    border-radius: 0 0 8px 8px;
+    margin-top: 4px;
+  }
+}
