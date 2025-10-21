@@ -75,7 +75,7 @@
         
         .dropdown {
             display: none;
-            position: absolute;
+            position: relative;
             background-color: #f6f6f6;
             min-width: 230px;
             overflow: auto;
