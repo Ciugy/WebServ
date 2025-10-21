@@ -79,6 +79,24 @@
         .dropdown-item:hover {
             background: #f0f4ff;
         }
+        
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: #f6f6f6;
+            min-width: 230px;
+            overflow: auto;
+            border: 1px solid #ddd;
+            z-index: 1;
+
+            a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+        }
+
     </style>
    <script>
        async function autocomplete(query) {
@@ -105,8 +123,9 @@
                         anchor.innerHTML = text;
                         dropdown.appendChild(anchor);
                     }
-                    dropdown.innerHTML = data;
-                    dropdown.style.display = "block";
+                    
+                    dropdown.classList.toggle("show");
+
                 });
             } 
 
