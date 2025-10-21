@@ -96,9 +96,12 @@
                 display: block;
 
                 &:hover {
-                    background-color: #f0f4ff;
+                    background-color: #fff0fcff;
                 }
             }
+        }
+        .show {
+            display: block;
         }
 
     </style>
@@ -165,12 +168,14 @@
                     const document_result = parser.parseFromString(data, 'text/html');
 
                     const users = document_result.getElementsByClassName('user-result');
-
+                    console.log(users, 'users');
+                    
                     for (user in users) {
-                        let text = users[user].innerText;
+                        let text = user.innerText;
                         console.log(text, user, 'george');
                         let anchor = document.createElement('a');
                         anchor.innerHTML = text;
+                        anchor.classList.add('dropdown-item');
                         dropdown.appendChild(anchor);
                     }
                     
