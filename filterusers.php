@@ -161,6 +161,10 @@
                 const response = fetch(`filterusers.php?query=${query.value}`)
                 .then (response => response.text())
                 .then (data => {
+                    // TODO : Fix le fetch de la page, ca retourne un html avec ERROR no user found
+                    // regarde le HTML que ca te donne tu vas voir des truc biz biz, du genre
+                    //  Connected successfully<div class='error'>No users found.</div>    </div>
+                    // Il si tu fixes ca, tu devrais avoir something
                     console.log(data, 'data');
                     const parser = new DOMParser();
                     const document_result = parser.parseFromString(data, 'text/html');
@@ -169,6 +173,7 @@
                     console.log(users, 'users');
 
                     for (user in users) {
+                        // waky but you got something
                         let text = user.innerText;
                         console.log(text, user, 'george');
                         let anchor = document.createElement('a');
