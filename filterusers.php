@@ -100,9 +100,6 @@
                 }
             }
         }
-        .show {
-            display: block;
-        }
 
     </style>
    
@@ -115,7 +112,7 @@
              <!-- utilise le lien suivant pour tester https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_type_button -->
               <!-- aka  <input type="inpuit" value="Click me" onchange="msg(this.value)">-->
                 <input type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
-                <button type="button">Search</button>
+                <button type="submit">Search</button>
             
             <div id="dropdown" class="dropdown"></div> 
             <br>
@@ -180,7 +177,7 @@
                         dropdown.appendChild(anchor);
                     }
                     
-                    dropdown.classList.toggle("show");
+                    dropdown.style.display = "block";
 
                 });
             } 
