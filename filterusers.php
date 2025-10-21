@@ -166,7 +166,6 @@
                 const response = fetch(filterusers.php?query=${encodeURIComponent(query)})
                 .then (response => response.text())
                 .then (data => {
-                    dropdown.innerHTML = "";
                     console.log(data, 'data');
                     const parser = new DOMParser();
                     const document_result = parser.parseFromString(data, 'text/html');
