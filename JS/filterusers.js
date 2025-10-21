@@ -1,9 +1,3 @@
-        let URL = new URL(window.location.href);
-
-        URL.search = "";
-
-        window.location.reload();
-        
         
         const searchInput = document.getElementById("searchInput");
         searchInput.addEventListener("input", (event) => {
