@@ -94,6 +94,10 @@
                 padding: 12px 16px;
                 text-decoration: none;
                 display: block;
+
+                &:hover {
+                    background-color: #f0f4ff;
+                }
             }
         }
 
@@ -140,7 +144,7 @@
                 <input type="search" id="searchInput" name="query" placeholder="Search for users..." oninput="autocomplete(this);" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
                 <button type="submit">Search</button>
             
-            <div id="dropdown" class="dropdown-list"></div> 
+            <div id="dropdown" class="dropdown"></div> 
             <br>
         </form>
         <?php
