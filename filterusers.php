@@ -1,34 +1,3 @@
-<?php
-include 'dbconnection.php';
-
-// Check if AJAX request (for dropdown autocomplete)
-$isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
-
-if (isset($_GET['query'])) {
-    $searchQuery = $_GET['query'];
-    if ($searchQuery !== '') {
-        $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                echo "<div class='user-result'><strong>Name:</strong> " . htmlspecialchars($row["first_name"]) . " &nbsp; <strong>Email:</strong> " . htmlspecialchars($row["email"]) . "</div>";
-            }
-        } else {
-            if (!$isAjax) {
-                echo "<div class='error'>No users found.</div>";
-            }
-        }
-    } else {
-        if (!$isAjax) {
-            echo "<div class='error'>No search query provided.</div>";
-        }
-    }
-    // If AJAX, stop here (no HTML wrapper)
-    if ($isAjax) exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -149,59 +118,88 @@ if (isset($_GET['query'])) {
     <div class="container">
         <h1>Filter Users</h1>
         <form action="filterusers.php" method="GET">
-            <input autocomplete="off"  type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
-            <button type="submit">Search</button>
+            <!-- Si tu veux remettre ton oninput... -->
+             <!-- utilise le lien suivant pour tester https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_type_button -->
+              <!-- aka  <input type="inpuit" value="Click me" onchange="msg(this.value)">-->
+                <input autocomplete="off"  type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
+                <button type="submit">Search</button>
             <div id="dropdown" class="dropdown"></div> 
             <br>
         </form>
+        <?php
+        include 'dbconnection.php';
+
+        if (isset($_GET['query']) && $_GET['query'] !== '') {
+            $searchQuery = $_GET['query'];
+            $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo "<div class='user-result'><strong>Name:</strong> " . htmlspecialchars($row["first_name"]) . " &nbsp; <strong>Email:</strong> " . htmlspecialchars($row["email"]) . "</div>";
+                }
+            } else {
+                echo "<div class='error'>No users found.</div>";
+            }
+        } else if (isset($_GET['query'])) {
+            echo "<div class='error'>No search query provided.</div>";
+        }
+        ?>
     </div>
     <script>
         const searchInput = document.getElementById("searchInput");
         searchInput.addEventListener("input", (event) => {
             autocomplete(event.target.value);
+
         });
 
+
         async function autocomplete(query) {
+            let filter;
             const dropdown = document.getElementById("dropdown");
-            if (!query) {
+            filter = query.toLowerCase();
+            if(!query) {
                 dropdown.innerHTML = "";
                 dropdown.style.display = "none";
                 return;
-            }
-            // Clear dropdown before populating
+            } 
+
             dropdown.innerHTML = "";
+            
+            else {
+                const response = fetch("filterusers.php?query=$" + {encodeURIComponent(query)})
+                .then (response => response.text())
+                .then (data => {
+                    console.log(data, 'data');
+                    const parser = new DOMParser();
+                    const document_result = parser.parseFromString(data, 'text/html');
+                    const users = document_result.getElementsByClassName('user-result');
+                    console.log(users, 'users');
 
-            // Fetch only user-result divs (AJAX)
-            fetch("filterusers.php?query=" + encodeURIComponent(query), {
-                headers: { "X-Requested-With": "XMLHttpRequest" }
-            })
-            .then(response => response.text())
-            .then(data => {
-                const parser = new DOMParser();
-                const document_result = parser.parseFromString(data, 'text/html');
-                const users = document_result.getElementsByClassName('user-result');
-
-                if (users.length === 0) {
-                    dropdown.style.display = "none";
-                    return;
-                }
-
-                Array.from(users).forEach(userElem => {
-                    let text = userElem.innerText;
-                    let anchor = document.createElement('a');
-                    anchor.textContent = text;
-                    anchor.classList.add('dropdown-item');
-                    // Optional: add click handler to fill input
-                    anchor.onclick = () => {
-                        searchInput.value = userElem.querySelector('strong').nextSibling.textContent.trim();
+                    if (users.length === 0) {
                         dropdown.style.display = "none";
-                    };
-                    dropdown.appendChild(anchor);
-                });
+                        return;
+                    }
 
-                dropdown.style.display = "block";
-            });
-        }
-    </script>
+                    
+                    Array.from(users).forEach(userElem => {
+                        let text = userElem.innerText;
+                        let anchor = document.createElement('a');
+                        anchor.textContent = text;
+                        anchor.classList.add('dropdown-item');
+                        anchor.onclick = () => {
+                            searchInput.value = userElem.querySelector('strong').nextSibling.textContent.trim();
+                            dropdown.style.display = "none";
+                        };
+                        dropdown.appendChild(anchor);
+                    });
+                    
+                    dropdown.style.display = "block";
+
+                });
+            } 
+        };
+
+   </script>
 </body>
 </html>
