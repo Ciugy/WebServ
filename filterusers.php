@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Filter Users Page</title>
     <link rel="stylesheet" href="/CSS/filterusers.css"/>
-    <script src="/JS/filterusers.js"></script>
 </head>
 <body>
     <div class="container">
@@ -89,4 +88,5 @@
 
    </script>
 </body>
+<script src="/JS/filterusers.js"></script>
 </html>
