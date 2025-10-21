@@ -147,58 +147,59 @@
 
         });
 
+async function autocomplete(inputEl) {
+  const dropdown = document.getElementById("dropdown");
+  const query = inputEl.value.trim();
 
-       async function autocomplete(inputEl) {
-        const dropdown = document.getElementById("dropdown");
-        const query = inputEl.value.trim();
+  if (!query) {
+    dropdown.innerHTML = "";
+    dropdown.style.display = "none";
+    return;
+  }
 
-        if (!query) {
-            dropdown.innerHTML = "";
-            dropdown.style.display = "none";
-            return;
-        }
+  try {
+    const response = await fetch(`filterusers.php?query=${encodeURIComponent(query)}`);
+    const data = await response.text();
 
-        try {
-            const response = await fetch(`filterusers.php?query=${encodeURIComponent(query)}`);
-            const data = await response.text();
+    // ⚠️ Check if your PHP is echoing “Connected successfully”
+    // Remove any such echo from dbconnection.php
+    console.log("Raw response:", data);
 
-            console.log(data, 'data');
+    // Parse the returned HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(data, "text/html");
+    const users = doc.getElementsByClassName("user-result");
 
-            // Parse HTML result
-            const parser = new DOMParser();
-            const document_result = parser.parseFromString(data, 'text/html');
-            const users = document_result.getElementsByClassName('user-result');
+    dropdown.innerHTML = ""; // clear previous dropdown content
 
-            console.log(users, 'users');
+    if (users.length > 0) {
+      for (const user of users) {
+        const text = user.innerText.trim();
 
-            dropdown.innerHTML = ""; // clear previous results
+        const item = document.createElement("div");
+        item.classList.add("dropdown-item");
+        item.textContent = text;
 
-            if (users.length > 0) {
-            for (const user of users) {
-                const text = user.innerText.trim();
-                const anchor = document.createElement('div');
-                anchor.textContent = text;
-                anchor.classList.add('dropdown-item');
+        // Optional: clicking autofills input
+        item.addEventListener("click", () => {
+          inputEl.value = text;
+          dropdown.style.display = "none";
+        });
 
-                // optional: fill input when clicked
-                anchor.addEventListener('click', () => {
-                inputEl.value = text;
-                dropdown.style.display = "none";
-                });
+        dropdown.appendChild(item);
+      }
+    } else {
+      dropdown.innerHTML = "<div class='error'>No users found.</div>";
+    }
 
-                dropdown.appendChild(anchor);
-            }
-            } else {
-            dropdown.innerHTML = "<div class='error'>No users found.</div>";
-            }
-
-            dropdown.style.display = "block";
-        } catch (err) {
-            console.error("Error fetching users:", err);
-            dropdown.innerHTML = "<div class='error'>Error loading users.</div>";
-            dropdown.style.display = "block";
-        }
+    dropdown.style.display = "block";
+  } catch (err) {
+    console.error("Error fetching users:", err);
+    dropdown.innerHTML = "<div class='error'>Error loading users.</div>";
+    dropdown.style.display = "block";
+  }
 }
+
 
    </script>
 </body>
