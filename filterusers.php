@@ -119,7 +119,7 @@
             <input type="search" id="searchInput" name="query" placeholder="Search for users..." oninput="autocomplete(this);" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
             <button type="submit">Search</button>
             <br>
-            <div id="dropdown" class="dropdown-list" style="display:none;"></div>
+            <div id="dropdown" class="dropdown-list"></div>
         </form>
         <?php
         include 'dbconnection.php';
