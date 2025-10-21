@@ -161,15 +161,16 @@
                 dropdown.style.display = "none";
                 return;
             } else {
-                const response = await fetch(`filterusers.php?query=${query.value}`)
+                const response = fetch(`filterusers.php?query=${query.value}`)
                 .then (response => response.text())
                 .then (data => {
+                    console.log(data, 'data');
                     const parser = new DOMParser();
                     const document_result = parser.parseFromString(data, 'text/html');
 
                     const users = document_result.getElementsByClassName('user-result');
                     console.log(users, 'users');
-                    
+
                     for (user in users) {
                         let text = user.innerText;
                         console.log(text, user, 'george');
