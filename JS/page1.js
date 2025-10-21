@@ -1,11 +1,16 @@
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value; // Display the default slider value
+const slider = document.getElementById("myRange");
+const output = document.getElementById("demo");
+const text = document.getElementById("TextInSlider");
 
-// Update the current slider value, updates the text as the slider is moved for 2.1.6.1
-slider.oninput = function () {
-  output.innerHTML = this.value;
-  if (output.innerHTML > 50) {
-    document.getElementById("TextInSlider").innerHTML = "Good, Better";
-  } else document.getElementById("TextInSlider").innerHTML = "Terrible, Bad";
-};
+output.textContent = slider.value;
+
+slider.addEventListener("input", function () {
+  output.textContent = this.value; // Update number on screen
+  this.setAttribute("value", this.value); // Ensures form submission reflects current position
+
+  if (this.value > 50) {
+    text.textContent = "Good, Better";
+  } else {
+    text.textContent = "Terrible, Bad";
+  }
+});
