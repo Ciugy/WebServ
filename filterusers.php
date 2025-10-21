@@ -112,7 +112,7 @@
                 dropdown.style.display = "none";
                 return;
             } else {
-                const response = await fetch(`filterusers.php?query=${query.value}`)
+                const response = fetch(`filterusers.php?query=${query.value}`)
                 .then (response => response.text())
                 .then (data => {
                     const parser = new DOMParser();
@@ -141,8 +141,8 @@
     <div class="container">
         <h1>Filter Users</h1>
         <form action="filterusers.php" method="GET">
-                <input type="search" id="searchInput" name="query" placeholder="Search for users..." oninput="autocomplete(this);" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
-                <button type="submit">Search</button>
+                <input type="search" id="searchInput" name="query" placeholder="Search for users..." oninput="(value)=>autocomplete(value);" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
+                <button type="button">Search</button>
             
             <div id="dropdown" class="dropdown"></div> 
             <br>
