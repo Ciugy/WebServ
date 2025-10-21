@@ -82,9 +82,9 @@
     </style>
    <script>
        async function autocomplete(query) {
-            var filter;
+            let filter;
             const dropdown = document.getElementById("dropdown");
-            filter = query.toUpperCase();
+            filter = query.toLowerCase();
             if(!query) {
                 dropdown.innerHTML = "";
                 dropdown.style.display = "none";
@@ -93,6 +93,16 @@
                 const response = await fetch(`filterusers.php?query=${query.value}`)
                 .then (response => response.text())
                 .then (data => {
+                    const parser = new DOMParser();
+                    const document_result = parser.parseFromString(data, 'text/html');
+
+                    const users = document_result.getElementsByClassName('user-result');
+
+                    for (user in users) {
+                        let text = users[user].innerText;
+                        console.log(text, user, 'george');
+                        dropdown.appendChild(text);
+                    }
                     dropdown.innerHTML = data;
                     dropdown.style.display = "block";
                 });
@@ -117,7 +127,7 @@
         if (isset($_GET['query']) && $_GET['query'] !== '') {
             $searchQuery = $_GET['query'];
             $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
-            $result = $conn->query($sql);
+            $result = $conn->query(query: $sql);
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
