@@ -141,7 +141,7 @@
     <div class="container">
         <h1>Filter Users</h1>
         <form action="filterusers.php" method="GET">
-                <input type="search" id="searchInput" name="query" placeholder="Search for users..." oninput="(value)=>autocomplete(value);" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
+                <input type="search" id="searchInput" name="query" placeholder="Search for users..." onchange="(value)=>autocomplete(value);" value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
                 <button type="button">Search</button>
             
             <div id="dropdown" class="dropdown"></div> 
