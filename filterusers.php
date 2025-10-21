@@ -61,15 +61,18 @@
             margin-bottom: 10px;
             text-align: center;
         }
-        /* Dropdown container */
+        .search-wrapper {
+        position: relative;
+        width: 100%;
+        }
+
         .dropdown-list {
         position: absolute;
-        top: 100%; /* directly below the input */
+        top: 100%;
         left: 0;
         right: 0;
         background: #fff;
         border: 1px solid #ccc;
-        border-top: none;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
         max-height: 250px;
         overflow-y: auto;
@@ -77,17 +80,14 @@
         display: none;
         }
 
-        /* Each item */
         .dropdown-item {
         padding: 8px 12px;
         cursor: pointer;
         color: #222;
         text-decoration: none;
         display: block;
-        transition: background 0.2s ease;
         }
 
-        /* Hover effect */
         .dropdown-item:hover {
         background: #f0f4ff;
         }
@@ -99,12 +99,19 @@
     <div class="container">
         <h1>Filter Users</h1>
         <form action="filterusers.php" method="GET">
-            <!-- Si tu veux remettre ton oninput... -->
-             <!-- utilise le lien suivant pour tester https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_type_button -->
-              <!-- aka  <input type="inpuit" value="Click me" onchange="msg(this.value)">-->
-                <input autocomplete="off"  type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
-                <button type="submit">Search</button>
-            <div id="dropdown" class="dropdown-list"></div> 
+            <div class="search-wrapper">
+                <input
+                autocomplete="off"
+                type="search"
+                id="searchInput"
+                name="query"
+                placeholder="Search for users..."
+                oninput="autocomplete(this)"
+                value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>"
+                >
+                <div id="dropdown" class="dropdown-list"></div>
+            </div>
+            <button type="submit">Search</button>
             <br>
         </form>
         <?php
@@ -113,7 +120,7 @@
         if (isset($_GET['query']) && $_GET['query'] !== '') {
             $searchQuery = $_GET['query'];
             $sql = "SELECT * FROM Users WHERE first_name LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR email LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
-            $result = $conn->query(query: $sql);
+            $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
