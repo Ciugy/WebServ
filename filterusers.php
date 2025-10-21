@@ -155,19 +155,18 @@
 
 
         async function autocomplete(query) {
-            let filter;
             const dropdown = document.getElementById("dropdown");
-            filter = query.toLowerCase();
             if(!query) {
                 dropdown.innerHTML = "";
                 dropdown.style.display = "none";
                 return;
-            } 
+            }
 
             dropdown.innerHTML = "";
-            
-            else {
-                const response = fetch("filterusers.php?query=$" + {encodeURIComponent(query)})
+
+                    fetch("filterusers.php?query=" + encodeURIComponent(query), {
+                    headers: { "X-Requested-With": "XMLHttpRequest" }
+                })
                 .then (response => response.text())
                 .then (data => {
                     console.log(data, 'data');
@@ -197,7 +196,6 @@
                     dropdown.style.display = "block";
 
                 });
-            } 
         };
 
    </script>
