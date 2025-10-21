@@ -111,7 +111,7 @@
             <!-- Si tu veux remettre ton oninput... -->
              <!-- utilise le lien suivant pour tester https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_type_button -->
               <!-- aka  <input type="inpuit" value="Click me" onchange="msg(this.value)">-->
-                <input type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
+                <input autocomplete="off"  type="search" id="searchInput" name="query" placeholder="Search for users..." value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>">
                 <button type="submit">Search</button>
             
             <div id="dropdown" class="dropdown"></div> 
@@ -147,59 +147,47 @@
 
         });
 
-async function autocomplete(inputEl) {
-  const dropdown = document.getElementById("dropdown");
-  const query = inputEl.value.trim();
 
-  if (!query) {
-    dropdown.innerHTML = "";
-    dropdown.style.display = "none";
-    return;
-  }
+              async function autocomplete(query) {
+            let filter;
+            const dropdown = document.getElementById("dropdown");
+            filter = query.toLowerCase();
+            if(!query) {
+                dropdown.innerHTML = "";
+                dropdown.style.display = "none";
+                return;
+            } else {
+                const response = fetch(`filterusers.php?query=${query.value}`)
+                .then (response => response.text())
+                .then (data => {
+                    // TODO : Fix le fetch de la page, ca retourne un html avec ERROR no user found
+                    // regarde le HTML que ca te donne tu vas voir des truc biz biz, du genre
+                    //  Connected successfully<div class='error'>No users found.</div>    </div>
+                    // Il si tu fixes ca, tu devrais avoir something
+                    console.log(data, 'data');
+                    const parser = new DOMParser();
+                    const document_result = parser.parseFromString(data, 'text/html');
 
-  try {
-    const response = await fetch(`filterusers.php?query=${encodeURIComponent(query)}`);
-    const data = await response.text();
+                    const users = document_result.getElementsByClassName('user-result');
+                    console.log(users, 'users');
 
-    // ⚠️ Check if your PHP is echoing “Connected successfully”
-    // Remove any such echo from dbconnection.php
-    console.log("Raw response:", data);
+                    for (user in users) {
+                        // waky but you got something
+                        let text = user.innerText;
+                        console.log(text, user, 'george');
+                        let anchor = document.createElement('a');
+                        anchor.innerHTML = text;
+                        anchor.classList.add('dropdown-item');
+                        dropdown.appendChild(anchor);
+                    }
+                    
+                    dropdown.style.display = "block";
 
-    // Parse the returned HTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(data, "text/html");
-    const users = doc.getElementsByClassName("user-result");
+                });
+            } 
 
-    dropdown.innerHTML = ""; // clear previous dropdown content
-
-    if (users.length > 0) {
-      for (const user of users) {
-        const text = user.innerText.trim();
-
-        const item = document.createElement("div");
-        item.classList.add("dropdown-item");
-        item.textContent = text;
-
-        // Optional: clicking autofills input
-        item.addEventListener("click", () => {
-          inputEl.value = text;
-          dropdown.style.display = "none";
-        });
-
-        dropdown.appendChild(item);
-      }
-    } else {
-      dropdown.innerHTML = "<div class='error'>No users found.</div>";
-    }
-
-    dropdown.style.display = "block";
-  } catch (err) {
-    console.error("Error fetching users:", err);
-    dropdown.innerHTML = "<div class='error'>Error loading users.</div>";
-    dropdown.style.display = "block";
-  }
-}
-
+            
+        };
 
    </script>
 </body>
