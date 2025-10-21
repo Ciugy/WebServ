@@ -112,7 +112,7 @@
                 dropdown.style.display = "none";
                 return;
             } else {
-                const response = fetch(`filterusers.php?query=${query.value}`)
+                const response = await fetch(`filterusers.php?query=${query.value}`)
                 .then (response => response.text())
                 .then (data => {
                     const parser = new DOMParser();
