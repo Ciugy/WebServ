@@ -142,53 +142,64 @@
     // sinon ca calisse pas grand chose, ca va call ta function mais ish clair selon la doc 
         const searchInput = document.getElementById("searchInput");
         searchInput.addEventListener("input", (event) => {
-            console.log("doux jesus", event.target.value);
             autocomplete(event.target.value);
             // on change => after focus
 
         });
 
 
-       async function autocomplete(query) {
-            let filter;
-            const dropdown = document.getElementById("dropdown");
-            filter = query.toLowerCase();
-            if(!query) {
-                dropdown.innerHTML = "";
+       async function autocomplete(inputEl) {
+        const dropdown = document.getElementById("dropdown");
+        const query = inputEl.value.trim();
+
+        if (!query) {
+            dropdown.innerHTML = "";
+            dropdown.style.display = "none";
+            return;
+        }
+
+        try {
+            const response = await fetch(`filterusers.php?query=${encodeURIComponent(query)}`);
+            const data = await response.text();
+
+            console.log(data, 'data');
+
+            // Parse HTML result
+            const parser = new DOMParser();
+            const document_result = parser.parseFromString(data, 'text/html');
+            const users = document_result.getElementsByClassName('user-result');
+
+            console.log(users, 'users');
+
+            dropdown.innerHTML = ""; // clear previous results
+
+            if (users.length > 0) {
+            for (const user of users) {
+                const text = user.innerText.trim();
+                const anchor = document.createElement('div');
+                anchor.textContent = text;
+                anchor.classList.add('dropdown-item');
+
+                // optional: fill input when clicked
+                anchor.addEventListener('click', () => {
+                inputEl.value = text;
                 dropdown.style.display = "none";
-                return;
-            } else {
-                const response = fetch(`filterusers.php?query=${query.value}`)
-                .then (response => response.text())
-                .then (data => {
-                    // TODO : Fix le fetch de la page, ca retourne un html avec ERROR no user found
-                    // regarde le HTML que ca te donne tu vas voir des truc biz biz, du genre
-                    //  Connected successfully<div class='error'>No users found.</div>    </div>
-                    // Il si tu fixes ca, tu devrais avoir something
-                    console.log(data, 'data');
-                    const parser = new DOMParser();
-                    const document_result = parser.parseFromString(data, 'text/html');
-
-                    const users = document_result.getElementsByClassName('user-result');
-                    console.log(users, 'users');
-
-                    for (user in users) {
-                        // waky but you got something
-                        let text = user.innerText;
-                        console.log(text, user, 'george');
-                        let anchor = document.createElement('a');
-                        anchor.innerHTML = text;
-                        anchor.classList.add('dropdown-item');
-                        dropdown.appendChild(anchor);
-                    }
-                    
-                    dropdown.style.display = "block";
-
                 });
-            } 
 
-            
-        };
+                dropdown.appendChild(anchor);
+            }
+            } else {
+            dropdown.innerHTML = "<div class='error'>No users found.</div>";
+            }
+
+            dropdown.style.display = "block";
+        } catch (err) {
+            console.error("Error fetching users:", err);
+            dropdown.innerHTML = "<div class='error'>Error loading users.</div>";
+            dropdown.style.display = "block";
+        }
+}
+
    </script>
 </body>
 </html>
