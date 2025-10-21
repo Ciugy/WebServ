@@ -101,6 +101,16 @@
             }
         }
 
+        .dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown a:hover {
+            background-color: #fff0fcff;
+        }
+
     </style>
    
 </head>
@@ -137,8 +147,6 @@
         ?>
     </div>
     <script>
-    // EN javascript pure, il faut des events listener pour les inputs
-    // sinon ca calisse pas grand chose, ca va call ta function mais ish clair selon la doc 
         const searchInput = document.getElementById("searchInput");
         searchInput.addEventListener("input", (event) => {
             autocomplete(event.target.value);
@@ -155,17 +163,13 @@
                 dropdown.style.display = "none";
                 return;
             } else {
-                const response = fetch(`filterusers.php?query=${query.value}`)
+                const response = fetch(filterusers.php?query=${encodeURIComponent(query)})
                 .then (response => response.text())
                 .then (data => {
-                    // TODO : Fix le fetch de la page, ca retourne un html avec ERROR no user found
-                    // regarde le HTML que ca te donne tu vas voir des truc biz biz, du genre
-                    //  Connected successfully<div class='error'>No users found.</div>    </div>
-                    // Il si tu fixes ca, tu devrais avoir something
+                    dropdown.innerHTML = "";
                     console.log(data, 'data');
                     const parser = new DOMParser();
                     const document_result = parser.parseFromString(data, 'text/html');
-
                     const users = document_result.getElementsByClassName('user-result');
                     console.log(users, 'users');
 
