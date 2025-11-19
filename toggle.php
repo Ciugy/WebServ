@@ -1,7 +1,6 @@
 <?php
 // toggle.php
 
-// BCM GPIO number for physical pin 7
 $gpioPin = 7; 
 
 if (!isset($_POST['state'])) {

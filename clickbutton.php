@@ -52,7 +52,7 @@ if (trim($output) == "1") {
 ?>
 
 
-<div class="state">Current state: <php echo htmlspecialchars($currentState); ?></div>
+<div class="state">Current state: <?php echo htmlspecialchars($currentState); ?></div>
 
 <form action="toggle.php" method="post" style="display:inline;">
     <input type="hidden" name="state" value="on">
