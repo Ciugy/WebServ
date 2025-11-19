@@ -1,12 +1,4 @@
-<?php
-$saved = isset($_GET['saved']) ? $_GET['saved'] : null;
-$currentState = "Unknown";
-if ($saved === "1") {
-    $currentState = "ON";
-} elseif ($saved === "0") {
-    $currentState = "OFF";
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +40,19 @@ if ($saved === "1") {
 
 <h1>LED Control GPIO Pin 7</h1>
 
-<div class="state">Current state: <?php echo htmlspecialchars($currentState); ?></div>
+<?php
+$output = shell_exec('gpio read 7');
+if (trim($output) == "1") {
+    $currentState = "ON";
+} elseif (trim($output) == "0") {
+    $currentState = "OFF";
+} else {
+    $currentState = "Unknown";
+}
+?>
+
+
+<div class="state">Current state: <php echo htmlspecialchars($currentState); ?></div>
 
 <form action="toggle.php" method="post" style="display:inline;">
     <input type="hidden" name="state" value="on">
