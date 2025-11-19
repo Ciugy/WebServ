@@ -18,7 +18,7 @@
             margin: 10px 0 25px;
             font-weight: bold;
         }
-        button {
+        a {
             padding: 10px 20px;
             margin: 0 10px;
             font-size: 16px;
