@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $raw = shell_exec('./bme280');
 
     if ($raw === null || $raw === '') {
-        echo "<p><strong>Error:</strong> No data received from bme280.</p>";
+        echo "<p><strong>Error:</strong> No data received from bm280.</p>";
     } else {
         // Decode JSON as associative array
         $data = json_decode($raw, true);
