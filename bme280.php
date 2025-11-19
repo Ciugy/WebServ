@@ -38,20 +38,18 @@
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Run the bme280 binary in the same directory
+    // Run the bme280 executable in the same directory
     $raw = shell_exec('./bm280');
 
     if ($raw === null || $raw === '') {
         echo "<p><strong>Error:</strong> No data received from bme280.</p>";
     } else {
-        // Decode JSON as associative array
+        // Decode JSON
         $data = json_decode($raw, true);
 
         if ($data === null) {
             echo "<p><strong>Error:</strong> Could not decode JSON:<br>" . htmlspecialchars($raw) . "</p>";
         } else {
-            // You said the JSON looks like:
-            // {"sensor":"bme280","humidity":27.58,"pressure":1015.68,"temperature":24.20,"altitude":-22.32,"timestamp":123456789}
             $sensor      = $data['sensor']      ?? 'unknown';
             $humidity    = $data['humidity']    ?? 'n/a';
             $pressure    = $data['pressure']    ?? 'n/a';
@@ -59,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $altitude    = $data['altitude']    ?? 'n/a';
             $timestamp   = $data['timestamp']   ?? 'n/a';
 
+            // Readings display
             echo '<div class="reading">';
             echo '<strong>Sensor:</strong> '      . htmlspecialchars($sensor)      . '<br>';
             echo '<strong>Temperature:</strong> ' . htmlspecialchars($temperature) . " °C<br>";
