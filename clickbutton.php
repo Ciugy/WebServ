@@ -1,3 +1,17 @@
+<?php
+if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
+    $gpioPin = 7;
+    $output = shell_exec("gpio -g read {$gpioPin}");
+    if (trim($output) == "1") {
+        echo "ON";
+    } elseif (trim($output) == "0") {
+        echo "OFF";
+    } else {
+        echo "Unknown";
+    }
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,17 +65,32 @@ if (trim($output) == "1") {
 }
 ?>
 
-<div class="state">Current state: <?php echo htmlspecialchars($currentState); ?></div>
+<div class="state" id="ledState">Current state: <?php echo htmlspecialchars($currentState); ?></div>
 
-<form action="toggle.php" method="post" style="display:inline;">
-    <input type="hidden" name="state" value="on">
-    <button type="submit" class="on">Turn ON</button>
-</form>
+<button class="on" onclick="toggleLED('on')">Turn ON</button>
+<button class="off" onclick="toggleLED('off')">Turn OFF</button>
 
-<form action="toggle.php" method="post" style="display:inline;">
-    <input type="hidden" name="state" value="off">
-    <button type="submit" class="off">Turn OFF</button>
-</form>
+<script>
+function toggleLED(state) {
+    fetch('toggle.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'state=' + state
+    })
+    .then(() => updateState());
+}
+
+function updateState() {
+    fetch('clickbutton.php?ajax=1')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('ledState').textContent = 'Current state: ' + data;
+        });
+}
+
+// Optionally, poll every few seconds to keep state updated
+setInterval(updateState, 3000);
+</script>
 
 </body>
 </html>
