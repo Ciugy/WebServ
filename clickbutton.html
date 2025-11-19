@@ -1,0 +1,67 @@
+<?php
+$currentState = "Unknown";
+$stateFile = "/tmp/led_state.txt";
+if (file_exists($stateFile)) {
+    $saved = trim(file_get_contents($stateFile));
+    if ($saved === "1") {
+        $currentState = "ON";
+    } elseif ($saved === "0") {
+        $currentState = "OFF";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raspberry Pi LED Control</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 40px auto;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .state {
+            margin: 10px 0 25px;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .on {
+            background: #4caf50;
+            color: #fff;
+            border: none;
+        }
+        .off {
+            background: #f44336;
+            color: #fff;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>LED Control GPIO Pin 7</h1>
+
+<div class="state">Current state: <?php echo htmlspecialchars($currentState); ?></div>
+
+<form action="toggle.php" method="post" style="display:inline;">
+    <input type="hidden" name="state" value="on">
+    <button type="submit" class="on">Turn ON</button>
+</form>
+
+<form action="toggle.php" method="post" style="display:inline;">
+    <input type="hidden" name="state" value="off">
+    <button type="submit" class="off">Turn OFF</button>
+</form>
+
+</body>
+</html>
