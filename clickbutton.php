@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,8 +41,7 @@
 <h1>LED Control GPIO Pin 7</h1>
 
 <?php
-$gpioPin = 7; // BCM pin number
-$output = shell_exec("gpio -g read {$gpioPin}");
+$output = shell_exec('gpio read 7');
 if (trim($output) == "1") {
     $currentState = "ON";
 } elseif (trim($output) == "0") {
@@ -51,7 +51,8 @@ if (trim($output) == "1") {
 }
 ?>
 
-<div class="state">Current state: <?php echo htmlspecialchars($currentState); ?></div>
+
+<div class="state">Current state: <php echo htmlspecialchars($currentState); ?></div>
 
 <form action="toggle.php" method="post" style="display:inline;">
     <input type="hidden" name="state" value="on">
