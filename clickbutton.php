@@ -43,7 +43,7 @@
 <?php
 $output = shell_exec('gpio read 7');
 if (trim($output) == "1") {
-    $currentState = "ON";
+    $currentState = "ON"; 
 } elseif (trim($output) == "0") {
     $currentState = "OFF";
 } else {
@@ -54,15 +54,21 @@ if (trim($output) == "1") {
 
 <div class="state">Current state: <?php echo htmlspecialchars($currentState); ?></div>
 
-<form action="toggle.php" method="post" style="display:inline;">
-    <input type="hidden" name="state" value="on">
-    <button type="submit" class="on">Turn ON</button>
-</form>
 
-<form action="toggle.php" method="post" style="display:inline;">
-    <input type="hidden" name="state" value="off">
-    <button type="submit" class="off">Turn OFF</button>
-</form>
+    <a onclick=Toggle() class="on">ON</a>
+    <a onclick=Toggle() class="off">OFF</a>
 
 </body>
+<script>
+    async function Toggle(state) {
+        await fetch('toggle.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'state=' + state
+        });
+        location.reload()
+    }
+</script>
 </html>
