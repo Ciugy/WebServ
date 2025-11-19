@@ -3,10 +3,6 @@
 
 $gpioPin = 7; 
 
-if (!isset($_POST['state'])) {
-    die("No state specified.");
-}
-
 $state = $_POST['state'] === 'on' ? '1' : '0';
 
 // Set pin mode to output
