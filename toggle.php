@@ -1,7 +1,7 @@
 <?php
 // toggle.php
 
-$gpioPin = 7; 
+$gpioPin = 4; 
 
 if (!isset($_POST['state'])) {
     die("No state specified.");
