@@ -17,5 +17,5 @@ shell_exec("sudo gpio -g mode {$gpioPin} out");
 shell_exec("sudo gpio -g write {$gpioPin} {$state}");
 
 // Redirect back to the button page
-header("Location: clickbutton.html");
+header("Location: clickbutton.php");
 exit;
