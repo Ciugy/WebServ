@@ -1,15 +1,4 @@
-<?php
-$currentState = "Unknown";
-$stateFile = "/tmp/led_state.txt";
-if (file_exists($stateFile)) {
-    $saved = trim(file_get_contents($stateFile));
-    if ($saved === "1") {
-        $currentState = "ON";
-    } elseif ($saved === "0") {
-        $currentState = "OFF";
-    }
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +40,7 @@ if (file_exists($stateFile)) {
 
 <h1>LED Control GPIO Pin 7</h1>
 
-<div class="state">Current state: <?php echo htmlspecialchars($currentState); ?></div>
+<div class="state">Current state: ?<php>echo htmlspecialchars($currentState);l</php></div>
 
 <form action="toggle.php" method="post" style="display:inline;">
     <input type="hidden" name="state" value="on">
