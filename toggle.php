@@ -3,7 +3,12 @@
 
 $gpioPin = 7; 
 
-$state = $_POST['state'] === 'on' ? '1' : '0';
+if ($state = $_POST['state'] === 'on') {
+    $state = '1';
+} else {
+    $state = '0';
+}
+
 
 // Set pin mode to output
 shell_exec("sudo gpio mode {$gpioPin} out");
