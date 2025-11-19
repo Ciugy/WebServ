@@ -39,10 +39,10 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Run the bme280 binary in the same directory
-    $raw = shell_exec('./bme280');
+    $raw = shell_exec('./bm280');
 
     if ($raw === null || $raw === '') {
-        echo "<p><strong>Error:</strong> No data received from bm280.</p>";
+        echo "<p><strong>Error:</strong> No data received from bme280.</p>";
     } else {
         // Decode JSON as associative array
         $data = json_decode($raw, true);
