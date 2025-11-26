@@ -41,7 +41,7 @@
 
 header('Content-Type: application/json');
 
-$raw = shell_exec('./bme280');   // same as before
+$raw = shell_exec('./bm280');   // same as before
 
 if ($raw === null || $raw === '') {
     echo json_encode(['error' => 'No data from bme280']);
