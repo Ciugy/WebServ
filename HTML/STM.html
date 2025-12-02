@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>STM Real-time Buses Demo</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/CSS/STM.css" />
+  </head>
+  <body>
+    <header>
+      <h1>STM Real-time Bus Positions</h1>
+    </header>
+
+    <div class="container">
+      <div id="status">Click "Load data" to fetch buses.</div>
+      <button id="refreshBtn">🔄 Load data</button>
+
+      <table id="busTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Vehicle ID</th>
+            <th>Route</th>
+            <th>Trip</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Speed (km/h)</th>
+            <th>Occupancy</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="footer">Powered by STM Open Data • Demo Project</div>
+
+    <script>
+      // if STM.js doesnt work
+      // const statusEl = document.getElementById("status");
+      // const tbody = document.querySelector("#busTable tbody");
+      // const refreshBtn = document.getElementById("refreshBtn");
+
+      // async function loadBuses() {
+      //   statusEl.innerHTML = 'Loading data <span class="spinner"></span>';
+      //   tbody.innerHTML = "";
+
+      //   try {
+      //     const res = await fetch("http://localhost:3000/api/buses");
+
+      //     if (!res.ok) {
+      //       throw new Error(`HTTP ${res.status}`);
+      //     }
+
+      //     const data = await res.json();
+      //     statusEl.textContent = `Fetched ${data.count} vehicles at ${data.updatedAt}`;
+
+      //     data.vehicles.slice(0, 30).forEach((v, index) => {
+      //       const tr = document.createElement("tr");
+
+      //       function td(text) {
+      //         const cell = document.createElement("td");
+      //         cell.textContent = text ?? "";
+      //         return cell;
+      //       }
+
+      //       tr.appendChild(td(index + 1));
+      //       tr.appendChild(td(v.id));
+      //       tr.appendChild(td(v.routeId));
+      //       tr.appendChild(td(v.tripId));
+      //       tr.appendChild(td(v.latitude.toFixed(5)));
+      //       tr.appendChild(td(v.longitude.toFixed(5)));
+      //       tr.appendChild(td(v.speedKph != null ? v.speedKph.toFixed(1) : ""));
+      //       tr.appendChild(td(v.occupancyStatus));
+
+      //       tbody.appendChild(tr);
+      //     });
+      //   } catch (err) {
+      //     console.error(err);
+      //     statusEl.textContent = "Error loading data: " + err.message;
+      //   }
+      // }
+
+      // refreshBtn.addEventListener("click", loadBuses);
+    </script>
+    <script src="/JS/STM.js"></script>
+  </body>
+</html>

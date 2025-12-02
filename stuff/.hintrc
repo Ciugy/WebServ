@@ -9,15 +9,13 @@
         "label": "off"
       }
     ],
-    "compat-api/css": [
+    "button-type": "off",
+    "axe/parsing": [
       "default",
       {
-        "ignore": [
-          "scrollbar-width",
-          "scrollbar-width: thin",
-          "scrollbar-color"
-        ]
+        "duplicate-id-active": "off"
       }
-    ]
+    ],
+    "detect-css-reflows/composite": "off"
   }
 }
