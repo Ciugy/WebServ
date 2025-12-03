@@ -4,60 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>STM Real-time Buses Demo</title>
-
-    <!-- Google Font -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/CSS/STM.css" />
   </head>
   <body>
-    <header>
-      <h1>STM Real-time Bus Positions</h1>
-    </header>
+    <h1>STM Real-time Bus Positions</h1>
 
-    <div class="container">
-      <div id="status">Click "Load data" to fetch buses.</div>
-      <button id="refreshBtn">🔄 Load data</button>
+    <div id="status">Click "Load data" to fetch buses.</div>
+    <button id="refreshBtn">Load data</button>
 
-      <table id="busTable">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Vehicle ID</th>
-            <th>Route</th>
-            <th>Trip</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
-            <th>Speed (km/h)</th>
-            <th>Occupancy</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <div class="footer">Powered by STM Open Data • Demo Project</div>
+    <table id="busTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Vehicle ID</th>
+          <th>Route ID</th>
+          <th>Trip ID</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Speed (m/s)</th>
+          <th>Occupancy</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
     <script>
       const statusEl = document.getElementById("status");
       const tbody = document.querySelector("#busTable tbody");
       const refreshBtn = document.getElementById("refreshBtn");
 
+      // how often to auto refresh (in milliseconds)
+      const AUTO_REFRESH_MS = 15000; // 15 seconds
+      let autoRefreshTimer = null;
+
       async function loadBuses() {
-        statusEl.innerHTML = 'Loading data <span class="spinner"></span>';
+        statusEl.textContent = "Loading data...";
         tbody.innerHTML = "";
 
         try {
           const res = await fetch("http://localhost:3000/api/buses");
-
           if (!res.ok) {
             throw new Error(`HTTP ${res.status}`);
           }
-
           const data = await res.json();
-          statusEl.textContent = `Fetched ${data.count} vehicles at ${data.updatedAt}`;
+          statusEl.textContent =
+            `Fetched ${data.count} vehicles at ${data.updatedAt}` +
+            ` (auto-refresh every ${AUTO_REFRESH_MS / 1000}s)`;
 
           data.vehicles.slice(0, 30).forEach((v, index) => {
             const tr = document.createElement("tr");
@@ -85,8 +76,22 @@
         }
       }
 
+      function startAutoRefresh() {
+        // clear any existing timer (just in case)
+        if (autoRefreshTimer !== null) {
+          clearInterval(autoRefreshTimer);
+        }
+        autoRefreshTimer = setInterval(loadBuses, AUTO_REFRESH_MS);
+      }
+
+      // button still works for manual refresh
       refreshBtn.addEventListener("click", loadBuses);
+
+      // auto-load once when the page opens, and then keep refreshing
+      window.addEventListener("load", () => {
+        loadBuses();
+        startAutoRefresh();
+      });
     </script>
-    <script src="/JS/STM.js"></script>
   </body>
 </html>
