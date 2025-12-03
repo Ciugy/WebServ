@@ -19,10 +19,25 @@ h1 {
   letter-spacing: 0.5px;
 }
 
+.subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
 .container {
   padding: 20px;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: auto;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 /* Button styling */
@@ -37,7 +52,6 @@ button {
   font-weight: 600;
   transition: 0.25s;
   box-shadow: 0 4px 10px rgba(0, 126, 199, 0.2);
-  margin-bottom: 15px;
 }
 
 button:hover {
@@ -48,7 +62,6 @@ button:hover {
 
 /* Status text */
 #status {
-  margin: 10px 0;
   font-size: 15px;
   font-weight: 500;
 }
@@ -72,15 +85,47 @@ button:hover {
   }
 }
 
+/* Stats cards */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 14px 0 8px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.stat-label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #777;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 600;
+}
+
 /* Table styling */
+.table-wrapper {
+  margin-top: 12px;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: white;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 10px;
-  overflow: hidden;
-  background: white;
-  margin-top: 10px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
 }
 
 th {
@@ -89,11 +134,21 @@ th {
   padding: 12px;
   text-align: left;
   font-weight: 600;
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 td {
   padding: 10px 12px;
   border-bottom: 1px solid #eee;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+tr:nth-child(even) td {
+  background: #fafbff;
 }
 
 tr:hover td {
@@ -102,7 +157,43 @@ tr:hover td {
 
 .footer {
   text-align: center;
-  padding: 20px;
+  padding: 16px;
   font-size: 13px;
   color: #777;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-good {
+  background: #e3f7e5;
+  color: #1c7c2f;
+}
+
+.badge-ok {
+  background: #fff4d9;
+  color: #a86b00;
+}
+
+.badge-full {
+  background: #ffe3e3;
+  color: #b3261e;
+}
+
+.badge-unknown {
+  background: #e3e9ff;
+  color: #213a8f;
+}
+
+@media (max-width: 700px) {
+  th,
+  td {
+    font-size: 12px;
+    padding: 8px 6px;
+  }
 }
