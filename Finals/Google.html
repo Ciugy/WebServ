@@ -136,4 +136,15 @@
     </div>
     <!-- Main Body Ends -->
   </body>
+  <script>
+    async function loadDoc() {
+            await fetch('/Finals/formsresponse.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'search=' + document.getElementById("search").value
+            });
+        }
+</script>
 </html>
