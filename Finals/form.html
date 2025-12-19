@@ -12,13 +12,22 @@
 
 </body>
 <script>
-function loadDoc() {
-  const xhttp = new XMLHttpRequest();
-  xhttp.onload = function() {
-    document.getElementById("search").innerHTML = this.responseText;
-  }
-  xhttp.open("GET", "https://www.google.ca/search?q=" + document.getElementById("search").value, true);
-  xhttp.send();
-}
+// function loadDoc() {
+//   const xhttp = new XMLHttpRequest();
+//   xhttp.onload = function() {
+//     document.getElementById("search").innerHTML = this.responseText;
+//   }
+//   xhttp.open("POST", "/Finals/formsresponse.php?search=" + document.getElementById("search").value, true);
+//   xhttp.send();
+// }
+async function loadDoc() {
+        await fetch('/Finals/formsresponse.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'search=' + document.getElementById("search").value
+        });
+    }
 </script>
 </html>
