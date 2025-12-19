@@ -8,7 +8,7 @@
 <body>
 <h1>Information Submitted</h1>
 <?php
-    include 'dbconnection.php';
+    include './PHP/dbconnection.php';
 
     // Make the table 
     $sql = "CREATE TABLE IF NOT EXISTS Finals (
