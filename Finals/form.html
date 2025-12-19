@@ -1,6 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        /* Reset some default styles */
+
+* {
+
+box-sizing: border-box;
+
+margin: 0;
+
+padding: 0;
+
+}
+
+body {
+
+font-family: Arial, sans-serif;
+
+min-height: 100vh;
+
+display: flex;
+
+flex-direction: column;
+
+}
+
+/* Header styles */
+
+header nav ul {
+
+display: flex;
+
+justify-content: flex-end;
+
+list-style: none;
+
+padding: 1rem 2rem;
+
+gap: 1.5rem;
+
+}
+
+header nav ul li a,
+
+header nav ul li button {
+
+color: #5f6368;
+
+text-decoration: none;
+
+background: none;
+
+border: none;
+
+cursor: pointer;
+
+font-size: 0.9rem;
+
+}
+
+header nav ul li button:hover,
+
+header nav ul li a:hover {
+
+text-decoration: underline;
+}
+</style>
 <title>Fake page 101</title>
 </head>
 <body>
@@ -12,14 +78,6 @@
 
 </body>
 <script>
-// function loadDoc() {
-//   const xhttp = new XMLHttpRequest();
-//   xhttp.onload = function() {
-//     document.getElementById("search").innerHTML = this.responseText;
-//   }
-//   xhttp.open("POST", "/Finals/formsresponse.php?search=" + document.getElementById("search").value, true);
-//   xhttp.send();
-// }
 async function loadDoc() {
         await fetch('/Finals/formsresponse.php', {
             method: 'POST',
