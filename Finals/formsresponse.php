@@ -11,19 +11,15 @@
     include './PHP/dbconnection.php';
 
     // Make the table 
-    $sql = "CREATE TABLE IF NOT EXISTS Finals (
-        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        first_name VARCHAR(30) NOT NULL,
-        last_name VARCHAR(30) NOT NULL,
-        IP VARCHAR(45) NOT NULL
-    )";
-
-    if (!mysqli_query($conn, $sql)) {
-        echo '<div class="error">Error creating table: ' . htmlspecialchars(mysqli_error($conn)) . '</div>';
-    }
+    // $sql = "CREATE TABLE IF NOT EXISTS Finals (
+    //     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    //     first_name VARCHAR(30) NOT NULL,
+    //     last_name VARCHAR(30) NOT NULL,
+    //     IP VARCHAR(45) NOT NULL
+    // )";
 
     // Collecting data from form
-    if (isset($_POST['fname']) && isset($_POST['lname'])) {
+    if (isset($_POST['fname']) && isset($_POST['lname']) && isset($_SERVER['REMOTE_ADDR'])) {
         $first_name = $_POST['fname'];
         $last_name = $_POST['lname'];
         $ip_address = $_SERVER['REMOTE_ADDR'];
