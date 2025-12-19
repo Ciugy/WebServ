@@ -7,8 +7,18 @@
 
 <h1>google</h1>
 <form action="/Finals/formsresponse.php" method="post">
-  <input type="text" id="search" name="search" placeholder="Search..."><br><br>
+  <input  onkeyup="loadDoc()" type="text" id="search" name="search" placeholder="Search..."><br><br>
   <input type="submit" value="Submit">
 
 </body>
+<script>
+function loadDoc() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    document.getElementById("search").innerHTML = this.responseText;
+  }
+  xhttp.open("GET", "https://www.google.ca/search?q=" + document.getElementById("search").value, true);
+  xhttp.send();
+}
+</script>
 </html>
