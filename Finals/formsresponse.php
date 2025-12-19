@@ -8,15 +8,15 @@
 <body>
 <h1>Information Submitted</h1>
 <?php
-    include './PHP/dbconnection.php';
+    include '../PHP/dbconnection.php';
 
     // Make the table 
-    // $sql = "CREATE TABLE IF NOT EXISTS Finals (
-    //     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    //     first_name VARCHAR(30) NOT NULL,
-    //     last_name VARCHAR(30) NOT NULL,
-    //     IP VARCHAR(45) NOT NULL
-    // )";
+    $sql = "CREATE TABLE IF NOT EXISTS Finals (
+        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        first_name VARCHAR(30) NOT NULL,
+        last_name VARCHAR(30) NOT NULL,
+        IP VARCHAR(45) NOT NULL
+    )";
 
     // Collecting data from form
     if (isset($_POST['fname']) && isset($_POST['lname']) && isset($_SERVER['REMOTE_ADDR'])) {
@@ -31,7 +31,7 @@
         if (!$stmt) {
             echo '<div class="error">Prepare failed: ' . htmlspecialchars($conn->error) . '</div>';
         } else {
-            $stmt->bind_param("sss", $first_name, $last_name, $ip_address);
+            $stmt->bind_param("ssi", $first_name, $last_name, $ip_address);
 
             if (!$stmt->execute()) {
                 echo '<div class="error">Execute failed: ' . htmlspecialchars($stmt->error) . '</div>';
