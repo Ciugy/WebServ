@@ -2,16 +2,9 @@
 <html>
 <body>
  
+<h1>Information Submitted</h1>
 <?php
     include 'dbconnection.php';
-
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    echo "Connected successfully";
 
     // Make the table
     $sql = "CREATE TABLE IF NOT EXISTS Finals (
@@ -26,16 +19,6 @@
     } else {
         echo "Error creating table: " . mysqli_error($conn);
     }
-
-    if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
-        echo 'IP address = '.$_SERVER['HTTP_CLIENT_IP'];  
-    }  
-    elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
-        echo 'IP address = '.$_SERVER['HTTP_X_FORWARDED_FOR'];  
-    }  
-    else{  
-        echo 'IP address = '.$_SERVER['REMOTE_ADDR'];  
-    }    
 
 
     // Collecting data from form
