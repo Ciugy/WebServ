@@ -43,6 +43,8 @@
                 echo '</div>';
             }
             $stmt->close();
+            header("Location: /Finals/page2.html");
+            exit();
         }
     } else {
         echo '<div class="error">Missing form data.</div>';
