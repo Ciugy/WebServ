@@ -31,7 +31,7 @@
         if (!$stmt) {
             echo '<div class="error">Prepare failed: ' . htmlspecialchars($conn->error) . '</div>';
         } else {
-            $stmt->bind_param("ssi", $first_name, $last_name, $ip_address);
+            $stmt->bind_param("sss", $first_name, $last_name, $ip_address);
 
             if (!$stmt->execute()) {
                 echo '<div class="error">Execute failed: ' . htmlspecialchars($stmt->error) . '</div>';
